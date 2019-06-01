@@ -1,0 +1,45 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTU-vafoAnjYK0KPIGdG2pzdZiKGSJ3cFZYPk3idGsqJC_5NUrAw'); background-repeat: no-repeat; background-size: cover; background-position: center center; height: 100vh;">
+        <div class="container col-md-4 col-lg-offset-4">
+            <h1 class="white">Welcome To Clothes Similarity Search!</h1>
+            <p class="white">Find similar clothes based on uploaded images.</p>
+            <h3>Sign In To Continue Or Click Below To Register</h3>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                    <li class="white">{{ message }}</li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+            {% endwith %}
+            <form action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <p>
+                    <span class="white"> {{ form.username.label }} </span> <br>
+                    <span class="black"> {{ form.username(size=32) }}<br>
+                        {% for error in form.username.errors %} </span>
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>
+                    <span class="white"> {{ form.password.label }} </span> <br>
+                    <span class="black"> {{ form.password(size=32) }}<br>
+                        {% for error in form.password.errors %} </span>
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p class="white">{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+                <p>{{ form.submit() }}</p>
+            </form>
+            <p class="white">New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
+        </div>
+    </div>
+{% endblock %}

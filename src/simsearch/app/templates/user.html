@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block head %}
+    <title>Profile</title>
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/solid.css" integrity="sha384-r/k8YTFqmlOaqRkZuSiE9trsrDXkh07mRaoGBMoDcmA58OHILZPsk29i2BsFng1B" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/fontawesome.css" integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+" crossorigin="anonymous">
+{% endblock %}
+
+{% block content %}
+    <div style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTU-vafoAnjYK0KPIGdG2pzdZiKGSJ3cFZYPk3idGsqJC_5NUrAw'); background-repeat: no-repeat; background-size: cover; background-position: center center; height: 100vh;"  class="jumbotron">
+        <div class = "container">
+            <div class = "row">
+                <div class = "col-12-xs" >
+                    <h2 class="white">Previous Searches</h2>
+                <div align="right"> <a href="{{ url_for("del_account") }} "> <h3 aligh="right" id="delete_account">Delete Account</h3></a></div>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <p class="bg-info">
+                            {% for message in messages %}
+                                {{ message }}
+                                <br>
+                            {% endfor %}
+                            </p>
+                        {% endif %}
+                    {% endwith %}
+                    <table class = "table table-striped" style="background-color: #ffffff;">
+                        <tr>
+                            <th>Image</th>
+                            <th>Uploaded</th>
+                            <th>Search</th>
+                            <th>Delete</th>
+                        </tr>
+                        {% for f,v in files %}
+                            <tr>
+                                <td><img src="{{ v }}" alt="Previous Search" height="100" width="100" /></td>
+                                <td>{{ f.last_modified | datetimeformat }}</td>
+                                <td>
+                                    <form class = "delete-form" action="{{ url_for("search_previous") }}" method="post">
+                                        <input type="hidden" name="key" value="{{ f.key }}">
+                                        <button id ="search" type="submit" class = "btn-default btn-sm">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form class = "delete-form" action="{{ url_for("delete") }}" method="post">
+                                        <input type="hidden" name="key" value="{{ f.key }}">
+                                        <button id ="delete" type="submit" class="btn-danger btn-sm">
+                                            <i class="fa fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Display</title>
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/solid.css" integrity="sha384-r/k8YTFqmlOaqRkZuSiE9trsrDXkh07mRaoGBMoDcmA58OHILZPsk29i2BsFng1B" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/fontawesome.css" integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+" crossorigin="anonymous">
+{% endblock %}
+
+
+{% block content %}
+    <title>Display</title>
+    <div style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTU-vafoAnjYK0KPIGdG2pzdZiKGSJ3cFZYPk3idGsqJC_5NUrAw'); background-repeat: no-repeat; background-size: cover; background-position: center center; height: 100vh; ">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <p class="bg-info" style="padding: 15;">
+            {% for message in messages %}
+                {{ message }}
+                <br>
+            {% endfor %}
+            </p>
+        {% endif %}
+    {% endwith %}
+    <table>
+    <tr valign="top" style="color: white;">
+        <td><h1>Query Image:</h1> <br> <img src="{{ filepath }}" height="150" alt="Query Image" width="150" hspace="20"/> </td>
+    </tr>
+    </table>
+    <br>
+    <h1 class="white">Results:</h1>
+    <br>
+        <div class = "col-12-xs">
+           <table class = "table table-striped" style="background-color: #ffffff;">
+                <tr>
+                    <th>Image</th>
+                    <th>How do you rate the result</th>
+                </tr>
+                {% for f,v in mock %}
+                    <tr>
+                        <td><img src="{{ f }}" alt="Result" height="150" width="150" />
+                        </td>
+                        <td>
+                            <div>
+                                <form class = "delete-form" action="{{ url_for("ratings") }}" method="post">
+                                    <input type="hidden" name="key" value="{{ query_name, v,'positive'}}">
+                                    <button id ="upvote" type="submit" class = "btn-default btn-lg">
+                                        <i class="fas fa-thumbs-up" style="color:green"></i>
+                                    </button>
+                                </form>
+                                    <br>
+                                <form class = "delete-form" action="{{ url_for("ratings") }}" method="post">
+                                    <input type="hidden" name="key" value="{{ query_name, v,'negative'}}">
+                                    <button id ="downvote" type="submit" class = "btn-default btn-lg">
+                                        <i class="fas fa-thumbs-down"style="color:red"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+           </table>
+        </div>
+    </div>
+{% endblock %}

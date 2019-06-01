@@ -1,0 +1,31 @@
+# Add files names (and patterns) you want git to ignore here.
+
+# Ignore java .class files.
+*.class
+
+# Ignore compiled C/C++ files.
+*.o
+
+# Ignore everything in the build directory.
+build/
+
+#Ignore pyc
+.pyc
+__pycache__
+.pytest_cache
+
+#Ignore idea
+.idea
+.log
+
+#Ignore databases
+src/simsearch/app.db
+
+#Ignor env
+src/simsearch/flaskvenv
+venv
+.env
+.save
+
+#Ignore get query file due to commit conflicts
+src/simsearch/app/get_query_images.py

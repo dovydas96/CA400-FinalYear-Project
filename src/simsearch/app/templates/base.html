@@ -1,0 +1,39 @@
+{% extends 'bootstrap/base.html' %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #232323; margin-bottom: 0;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('upload' , username=current_user.username) }}"><span class="white">Similar Clothes Search </span></a>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a class="white" href="{{ url_for('upload' , username=current_user.username) }}">Upload <span class="sr-only"></span></a></li>
+          {% if current_user.is_anonymous %}
+          <li class="active"><a class="white" href="{{ url_for('login') }}">Login <span class="sr-only"></span></a></li>
+          {% else %}
+        <li class="active" id="profile" ><a class="white" href="{{ url_for('user', username=current_user.username) }}">Profile <span class="sr-only"></span></a></li>
+        <li class="active" id="logout" ><a class="white" href="{{ url_for('logout') }}">Logout <span class="sr-only"></span></a></li>
+          {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <body>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </body>
+    </div>
+{% endblock %}
+</div>

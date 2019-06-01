@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Upload</title>
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+
+
+{% block content %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <div style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTU-vafoAnjYK0KPIGdG2pzdZiKGSJ3cFZYPk3idGsqJC_5NUrAw'); background-repeat: no-repeat; background-size: cover; background-position: center center; height: 100vh; color: white;"  class="jumbotron">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <div class="container col-md-4 col-lg-offset-4" >
+          {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                  <ul class=flashes>
+                      {% for message in messages %}
+                          <li>{{ message }}</li>
+                      {% endfor %}
+                  </ul>
+              {% endif %}
+          {% endwith %}
+          <h1 class="white">Upload Image</h1>
+        <p class="lead">Choose a picture of clothing to upload below!</p>
+          <form method=POST enctype=multipart/form-data>
+            <input id="upload" type=file name=photo class="btn btn-primary btn-lg" role="button">
+            <input id="submit"type="submit" onclick="$('#loading').show();"class="btn btn-primary btn-lg" role="button" >
+          </form>
+      <div id="loading" style="display:none;"><img src="../static/load.gif" alt="Loading" /></div>
+      </div>
+  </div>
+{% endblock %}
